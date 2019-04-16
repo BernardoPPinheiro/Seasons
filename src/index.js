@@ -20,18 +20,24 @@ class App extends React.Component {
     );
    }
 
-   
+   renderContent() {
+    if(this.state.errorMessage && !this.state.lat) {
+        return <div>Error: {this.state.errorMessage}</div>
+    }
+
+    if (!this.state.err && this.state.lat) {
+        return <SeasonDisplay lat={this.state.lat} />
+    }
+
+    return <Spinner />
+   }
 
     render() {
-        if(this.state.errorMessage && !this.state.lat) {
-            return <div>Error: {this.state.errorMessage}</div>
-        }
-
-        if (!this.state.err && this.state.lat) {
-            return <SeasonDisplay lat={this.state.lat} />
-        }
-
-        return <Spinner />
+       return (
+           <div ClassName="border red">
+           {this.renderContent()}
+           </div>
+       )
     }
 }
 ReactDOM.render( <App /> , document.querySelector('#root'));
